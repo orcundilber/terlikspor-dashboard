@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-orange: #ff6b00;
+  --neon-blue: #3b82f6;
+  --neon-purple: #7c3aed;
+  --background: #0f1117;
+  --surface: #161a23;
+}
+
+body {
+  background: var(--background);
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Background with subtle radial gradient */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 107, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+    radial-gradient(ellipse 50% 30% at 0% 100%, rgba(124, 58, 237, 0.08) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #161a23;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2f3d;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3a4156;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Animations */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 0, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 107, 0, 0.5); }
+}
+
+.spin { animation: spin 1s linear infinite; }
+.float { animation: float 3s ease-in-out infinite; }
+.shimmer { 
+  animation: shimmer 2s linear infinite; 
+  background: linear-gradient(90deg, #161a23 0%, #1e2330 50%, #161a23 100%);
+  background-size: 200% 100%;
+}
+.glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* Glassmorphism */
+.glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Neon glow text */
+.text-glow {
+  text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
+}
+
+/* Gradient border */
+.gradient-border {
+  position: relative;
+  background: #161a23;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 107, 0, 0.5), rgba(255, 107, 0, 0.1) 50%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Tab underline animation */
+.tab-underline {
+  position: relative;
+}
+
+.tab-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #ff6b00, #ff8c33);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.tab-underline.active::after,
+.tab-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Progress bar animation */
+.progress-animate {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+@keyframes progress-fill {
+  from { width: 0; }
+}
+
+/* Number counter animation */
+.number-pop {
+  animation: number-pop 0.3s ease-out;
+}
+
+@keyframes number-pop {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Skeleton loading */
+.skeleton {
+  background: linear-gradient(90deg, #161a23 0%, #1e2330 50%, #161a23 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Focus ring */
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.5);
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 107, 0, 0.3);
+  color: #ffffff;
+}

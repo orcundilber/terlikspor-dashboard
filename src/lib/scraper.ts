@@ -42,7 +42,13 @@ const DEFAULT_PLAYERS: Player[] = [
 // ── Yardımcı Fonksiyonlar ────────────────────────────────────────────────────
 
 async function fetchHtml(url: string): Promise<string> {
+  const isVercelBuild = process.env.VERCEL === '1' || process.env.VERCEL_ENV === 'production'
+
   try {
+    if (isVercelBuild) {
+      throw new Error('Skipping Puppeteer on Vercel build')
+    }
+
     const browser = await puppeteer.launch({ headless: true })
     const page = await browser.newPage()
 
@@ -54,7 +60,7 @@ async function fetchHtml(url: string): Promise<string> {
 
     return html
   } catch (e) {
-    console.error('[fetchHtml] Puppeteer error, trying fetch:', e)
+    console.log('[fetchHtml] Using fetch fallback for:', url)
     const res = await fetch(url, { headers: HEADERS })
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     return res.text()

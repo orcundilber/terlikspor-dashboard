@@ -2,6 +2,7 @@ import { scrapeTeamInfo, scrapeStandings, scrapeMatches, scrapeScorers, scrapeTe
 import HeroCard from '@/components/HeroCard'
 import TabPanel from '@/components/TabPanel'
 import RefreshButton from '@/components/RefreshButton'
+import DashboardContent from '@/components/DashboardContent'
 import { Zap } from 'lucide-react'
 
 export const revalidate = 120
@@ -22,8 +23,9 @@ export default async function DashboardPage() {
   const wld = standings.find(r => r.isTerlik)
 
   return (
-    <main className="min-h-screen relative">
-      <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
+    <DashboardContent>
+      <main className="min-h-screen relative">
+        <div className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
         
         {/* Header */}
         <div className="flex items-center justify-between mb-6 sm:mb-8 flex-wrap gap-4">
@@ -84,7 +86,8 @@ export default async function DashboardPage() {
           </p>
         </div>
 
-      </div>
-    </main>
+        </div>
+      </main>
+    </DashboardContent>
   )
 }
